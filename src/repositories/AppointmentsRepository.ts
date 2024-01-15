@@ -28,6 +28,8 @@ class AppointmentsRepository {
 		return findAppointment || null;
 	  }
 
+	// { provider, date } - Isso se chama desestruturação. Agora passa-se a usar parâmetros nomeados
+
 	public create({provider, date}: CreateAppointmentDTO): Appointment {
 		const appointment = new Appointment({provider, date});
 		this.appointments.push(appointment);
