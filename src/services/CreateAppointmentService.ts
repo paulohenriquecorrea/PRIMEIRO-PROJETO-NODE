@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import {startOfHour} from 'date-fns';
 import {getCustomRepository} from 'typeorm';
 
@@ -11,12 +12,12 @@ import AppointmentsRepository from '../repositories/AppointmentsRepository';
  */
 
 type RequestDTO = {
-	provider: string;
+	provider_id: string;
 	date: Date;
 };
 
 class CreateAppointmentService {
-	public async execute({provider, date}: RequestDTO): Promise<Appointment> {
+	public async execute({provider_id, date}: RequestDTO): Promise<Appointment> {
 		const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
 		const appointmentDate = startOfHour(date);
@@ -28,7 +29,8 @@ class CreateAppointmentService {
 		}
 
 		const appointment = appointmentsRepository.create({
-			provider,
+
+			provider_id,
 			date: appointmentDate,
 		});
 
