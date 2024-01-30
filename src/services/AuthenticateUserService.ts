@@ -1,5 +1,7 @@
 import {getRepository} from 'typeorm';
 import {compare} from 'bcryptjs';
+import {sign} from 'jsonwebtoken';
+
 import User from '../models/User';
 
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
@@ -11,6 +13,7 @@ interface Request {
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 interface Response {
 	user: User;
+	token: string;
 }
 
 class AuthenticateUserService {
@@ -33,7 +36,16 @@ class AuthenticateUserService {
 
 		delete user.password;
 
-		return {user};
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+		const token = sign({}, '6cd5a835553a58c5eb27cbcbbe31cbe8', {
+			subject: user.id,
+			expiresIn: '1d',
+		});
+
+		return {
+			user,
+			token,
+		};
 	}
 }
 
