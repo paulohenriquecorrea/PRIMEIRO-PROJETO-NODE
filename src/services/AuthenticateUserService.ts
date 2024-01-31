@@ -1,7 +1,9 @@
+
 import {getRepository} from 'typeorm';
 import {compare} from 'bcryptjs';
 import {sign} from 'jsonwebtoken';
 
+import authConfig from '../config/auth';
 import User from '../models/User';
 
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
@@ -36,10 +38,11 @@ class AuthenticateUserService {
 
 		delete user.password;
 
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-		const token = sign({}, '6cd5a835553a58c5eb27cbcbbe31cbe8', {
+		const {secret, expiresIn} = authConfig.jwt;
+
+		const token = sign({}, secret, {
 			subject: user.id,
-			expiresIn: '1d',
+			expiresIn,
 		});
 
 		return {
