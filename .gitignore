@@ -46,3 +46,6 @@ out/
 *.njsproj
 *.sln
 *.sw??
+
+tmp/*
+!tmp/.gitkeep

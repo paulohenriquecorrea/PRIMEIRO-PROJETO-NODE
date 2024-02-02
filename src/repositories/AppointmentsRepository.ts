@@ -15,6 +15,16 @@ class AppointmentsRepository extends Repository<Appointment> {
 
 		return findAppointment || null;
 	  }
+
+	  public async findById(id: string): Promise<Appointment | undefined> {
+		const findAppointment = await this.findOne({
+			where: {
+				id,
+			},
+		});
+
+		return findAppointment;
+	  }
 }
 
 export default AppointmentsRepository;
