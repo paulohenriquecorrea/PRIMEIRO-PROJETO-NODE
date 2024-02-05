@@ -39,6 +39,7 @@ class AuthenticateUserService {
 		}
 
 		delete user.password;
+		// Delete user.avatar;
 
 		const {secret, expiresIn} = authConfig.jwt;
 
